@@ -12,7 +12,7 @@ def sniff(url):
         u = urlparse.urljoin(url, s)
         if is_rss(u):
             print u
-    print len(results)
+            results.append(u)
     if len(results) == 0:
         print 'Cannot find a rss feed at %s' % url
 
@@ -39,8 +39,7 @@ def is_rss(url):
 def is_valid_feed(content):
     try:
         root = ET.fromstring(content)
-        rssTags = root.findall('[rss]')
-        return len(rssTags) > 0
+        return root.tag == 'rss'
     except:
         pass
     return False
