@@ -7,15 +7,10 @@ import xml.etree.ElementTree as ET
 
 def sniff(url):
     suffixes = ['', 'rss', 'rss.xml', 'feed.xml', 'atom.xml', 'atom2.xml']
-    results = []
     for s in suffixes:
         u = urlparse.urljoin(url, s)
         if is_rss(u):
-            print u
-            results.append(u)
-    if len(results) == 0:
-        print 'Cannot find a rss feed at %s' % url
-
+            return u
 
 def is_rss(url):
     o = urlparse.urlparse(url)
@@ -47,6 +42,11 @@ def is_valid_feed(content):
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         u = sys.argv[1]
-        sniff(u)
+        feeds = sniff(u)
+        if len(feeds) > 0:
+            for feed in feeds:
+                print feed
+        else:
+            print 'Cannot find a rss feed at %s' % u
     else:
         print 'invalid url, e.g. python sniffer.py http://www.example.com'
