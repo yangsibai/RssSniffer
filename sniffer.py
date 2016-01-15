@@ -5,12 +5,14 @@ import urlparse
 import urllib2
 import xml.etree.ElementTree as ET
 
+
 def sniff(url):
     suffixes = ['', 'rss', 'rss.xml', 'feed.xml', 'atom.xml', 'atom2.xml']
     for s in suffixes:
         u = urlparse.urljoin(url, s)
         if is_rss(u):
             return u
+
 
 def is_rss(url):
     o = urlparse.urlparse(url)
@@ -31,6 +33,7 @@ def is_rss(url):
         pass
     return False
 
+
 def is_valid_feed(content):
     try:
         root = ET.fromstring(content)
@@ -39,11 +42,13 @@ def is_valid_feed(content):
         pass
     return False
 
+
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         u = sys.argv[1]
+        print 'I\'m working on %s' % u
         feeds = sniff(u)
-        if len(feeds) > 0:
+        if feeds and len(feeds) > 0:
             for feed in feeds:
                 print feed
         else:
