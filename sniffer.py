@@ -1,4 +1,4 @@
-# -*- encofing: utf-8 -*-
+# -*- encoding: utf-8 -*-
 
 import sys
 import urlparse
@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 
 def sniff(url):
-    suffixes = ['', 'rss', 'rss.xml', 'feed.xml', 'atom.xml', 'atom2.xml']
+    suffixes = ['', 'rss', 'rss.xml', 'feed.xml', 'atom.xml', 'atom2.xml', 'feed']
     for s in suffixes:
         u = urlparse.urljoin(url, s)
         if is_rss(u):
