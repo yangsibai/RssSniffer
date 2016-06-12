@@ -12,7 +12,10 @@ def sniff(url):
         u = urlparse.urljoin(url, s)
         if is_rss(u):
             return u
-
+        if not url.endswith("/"):
+            u2 = urlparse.urljoin(url + '/', s)
+            if is_rss(u2):
+                return u2
 
 def is_rss(url):
     o = urlparse.urlparse(url)
@@ -47,10 +50,9 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         u = sys.argv[1]
         print 'I\'m working on %s' % u
-        feeds = sniff(u)
-        if feeds and len(feeds) > 0:
-            for feed in feeds:
-                print feed
+        feed = sniff(u)
+        if feed:
+            print "Find a RSS feed at:", feed
         else:
             print 'Cannot find a rss feed at %s' % u
     else:
