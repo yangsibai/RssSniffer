@@ -52,7 +52,7 @@ if __name__ == '__main__':
         print 'I\'m working on %s' % u
         feed = sniff(u)
         if feed:
-            print "Find a RSS feed at:", feed
+            print "A RSS feed is found at:", feed
         else:
             print 'Cannot find a rss feed at %s' % u
     else:
