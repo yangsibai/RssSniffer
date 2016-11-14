@@ -14,7 +14,7 @@ def sniff(url):
             return u
         if not url.endswith("/"):
             u2 = urlparse.urljoin(url + '/', s)
-            if is_rss(u2):
+            if u2 != u and is_rss(u2):
                 return u2
 
 def is_rss(url):
@@ -40,7 +40,7 @@ def is_rss(url):
 def is_valid_feed(content):
     try:
         root = ET.fromstring(content)
-        return root.tag == 'rss'
+        return 'rss' in root.tag or 'feed' in root.tag
     except:
         pass
     return False
